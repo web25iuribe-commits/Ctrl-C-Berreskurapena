@@ -39,7 +39,6 @@ public class HasieraController {
     @PostMapping("/login")
     public String autenticar(@RequestParam String email,
                              @RequestParam String pasahitza,
-                             @RequestParam(value = "selectedRole", required = false, defaultValue = "erabiltzaile") String selectedRole,
                              HttpSession session,
                              RedirectAttributes redirectAttributes) {
         String emaila = email == null ? "" : email.trim();
@@ -57,11 +56,6 @@ public class HasieraController {
         }
 
         boolean userIsAdmin = isAdminRole(user.getErabiltzaile_mota());
-        boolean selectedAdmin = "admin".equals(selectedRole);
-        if (userIsAdmin != selectedAdmin) {
-            redirectAttributes.addFlashAttribute("error", "Hautatutako sarbide mota ez dator bat. Egiaztatu aukera eta saiatu berriro.");
-            return "redirect:/login";
-        }
 
         session.setAttribute("loggedUser", user);
         session.setAttribute("role", user.getErabiltzaile_mota());

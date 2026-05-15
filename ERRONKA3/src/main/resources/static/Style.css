@@ -12,7 +12,6 @@ body {
     text-align: center;
     background-color: rgba(249, 250, 251);
 
-
 }
 
 footer {
@@ -130,7 +129,7 @@ footer {
 .app-navbar .btn-outline-secondary,
 .app-navbar .btn-outline-light {
     border-color: rgba(255, 255, 255, 0.55) !important;
-    color: rgba(255, 255, 255, 0.95) !important;
+    color: rgba(255, 255, 255, 0.92) !important;
 }
 
 .app-navbar .btn-outline-secondary:hover,
@@ -235,156 +234,203 @@ body.bg-dark.text-white {
     --bs-table-hover-bg: #e2e6ea;
     --bs-table-hover-color: #212529;
 }
-
-.table-dark thead th {
-    background-color: #1c398e !important;
-    color: #ffffff !important;
-    border-color: #16307a !important;
-}
-
-
-.admin-page .table.table-dark > :not(caption) > * > *,
-.historikoa-page .table.table-dark > :not(caption) > * > *,
-.admin-page .table.table-dark tbody tr,
-.historikoa-page .table.table-dark tbody tr {
-    background-color: #ffffff !important;
-    color: #212529 !important;
-    box-shadow: inset 0 0 0 9999px rgba(255, 255, 255, 1) !important;
-}
-
-.admin-page .table.table-dark tbody tr:hover > *,
-.historikoa-page .table.table-dark tbody tr:hover > * {
-    box-shadow: inset 0 0 0 9999px rgba(238, 243, 255, 1) !important;
-}
-
-.admin-page .container-fluid.py-4,
-.historikoa-page .container-fluid.py-4 {
-    max-width: 1180px;
-}
-
-.admin-page .card,
-.historikoa-page .card {
-    background-color: var(--bs-tertiary-bg) !important;
-    border: none !important;
-    border-radius: 0.75rem !important;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
-    overflow: hidden;
-}
-
-.admin-page .card-body,
-.historikoa-page .card-body {
-    padding: 1.5rem !important;
-}
-
-.admin-page .card-title,
-.historikoa-page .card-title {
-    color: #212529 !important;
-    text-align: center;
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem !important;
-}
-
-.admin-page .input-group,
-.historikoa-page .input-group {
-    max-width: 100%;
-}
-
-.admin-page .table,
-.historikoa-page .table {
-    margin-bottom: 0;
-}
-
-.admin-page .table.table-dark,
-.historikoa-page .table.table-dark {
-    --bs-table-bg: transparent;
-    --bs-table-striped-bg: #eef1f6;
-    --bs-table-striped-color: #212529;
-    --bs-table-hover-bg: #e5ebf7;
-    --bs-table-hover-color: #212529;
-    --bs-table-border-color: #d6dbe6;
-    border-color: #d6dbe6 !important;
-}
-
-.admin-page .table.table-dark thead th,
-.historikoa-page .table.table-dark thead th {
-    background-color: #e9ecef !important;
-    color: #212529 !important;
-    border-color: #d6dbe6 !important;
-    font-weight: 700;
-}
-
-.admin-page .table.table-dark tbody tr:nth-of-type(odd) > *,
-.historikoa-page .table.table-dark tbody tr:nth-of-type(odd) > * {
-    box-shadow: inset 0 0 0 9999px #f8f9fa !important;
-}
-
-.admin-page .table.table-dark tbody tr:nth-of-type(even) > *,
-.historikoa-page .table.table-dark tbody tr:nth-of-type(even) > * {
-    box-shadow: inset 0 0 0 9999px #eef1f6 !important;
-}
-
-.admin-page .btn.btn-success,
-.admin-page .btn.btn-warning,
-.admin-page .btn.btn-secondary,
-.admin-page .btn.btn-outline-secondary,
-.historikoa-page .btn.btn-secondary,
-.historikoa-page .btn.btn-outline-secondary {
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-.modal-content.bg-dark {
-    background-color: #ffffff !important;
-    color: #212529 !important;
-}
-.modal-header.border-secondary,
-.modal-footer.border-secondary {
-    border-color: #dee2e6 !important;
-}
-.btn-close.btn-close-white {
-    filter: invert(1) grayscale(100%) brightness(0) !important;
-}
-
-.card.bg-secondary-subtle .text-secondary {
-    color: #6c757d !important;
-}
-.card.bg-secondary-subtle .form-label.text-secondary {
-    color: #495057 !important;
-}
+    .table-dark thead th {
+        background-color: #1c398e !important;
+        color: #ffffff !important;
+        border-color: #16307a !important;
+    }
 
 
-.login-page {
-    background: #ffffff !important;
-    padding: 1.5rem;
-    padding-bottom: 0;
-}
+    .admin-page .table.table-dark > :not(caption) > * > *,
+    .historikoa-page .table.table-dark > :not(caption) > * > *,
+    .admin-page .table.table-dark tbody tr,
+    .historikoa-page .table.table-dark tbody tr {
+        background-color: #ffffff !important;
+        color: #212529 !important;
+        box-shadow: inset 0 0 0 9999px rgba(255, 255, 255, 1) !important;
+    }
 
-.login-card {
-    background-color: #ffffff !important;
-    border: 1px solid #d8e1ff !important;
-    border-radius: 14px;
-    margin: auto;
-}
+    .admin-page .table.table-dark tbody tr:hover > *,
+    .historikoa-page .table.table-dark tbody tr:hover > * {
+        box-shadow: inset 0 0 0 9999px rgba(238, 243, 255, 1) !important;
+    }
 
-.login-title {
-    color: #1c398e;
-    font-weight: 700;
-}
+    .admin-page .container-fluid.py-4,
+    .historikoa-page .container-fluid.py-4 {
+        max-width: 1180px;
+    }
 
-.login-subtitle {
-    color: #5c6a8b;
-}
+    .admin-page .card,
+    .historikoa-page .card {
+        background-color: var(--bs-tertiary-bg) !important;
+        border: none !important;
+        border-radius: 0.75rem !important;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+        overflow: hidden;
+    }
 
-.login-label {
-    color: #24408f;
-}
+    .admin-page .card-body,
+    .historikoa-page .card-body {
+        padding: 1.5rem !important;
+    }
 
-.login-input {
-    background-color: #ffffff !important;
-    color: #1f2937 !important;
-    border-color: #bfd0ff !important;
-}
+    .admin-page .card-title,
+    .historikoa-page .card-title {
+        color: #212529 !important;
+        text-align: center;
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem !important;
+    }
+
+    .admin-page .input-group,
+    .historikoa-page .input-group {
+        max-width: 100%;
+    }
+
+    .admin-page .table,
+    .historikoa-page .table {
+        margin-bottom: 0;
+    }
+
+    .admin-page .table.table-dark,
+    .historikoa-page .table.table-dark {
+        --bs-table-bg: transparent;
+        --bs-table-striped-bg: #eef1f6;
+        --bs-table-striped-color: #212529;
+        --bs-table-hover-bg: #e5ebf7;
+        --bs-table-hover-color: #212529;
+        --bs-table-border-color: #d6dbe6;
+        border-color: #d6dbe6 !important;
+    }
+
+    .admin-page .table.table-dark thead th,
+    .historikoa-page .table.table-dark thead th {
+        background-color: #e9ecef !important;
+        color: #212529 !important;
+        border-color: #d6dbe6 !important;
+        font-weight: 700;
+    }
+
+    .admin-page .table.table-dark tbody tr:nth-of-type(odd) > *,
+    .historikoa-page .table.table-dark tbody tr:nth-of-type(odd) > * {
+        box-shadow: inset 0 0 0 9999px #f8f9fa !important;
+    }
+
+    .admin-page .table.table-dark tbody tr:nth-of-type(even) > *,
+    .historikoa-page .table.table-dark tbody tr:nth-of-type(even) > * {
+        box-shadow: inset 0 0 0 9999px #eef1f6 !important;
+    }
+
+    .admin-page .btn.btn-success,
+    .admin-page .btn.btn-warning,
+    .admin-page .btn.btn-secondary,
+    .admin-page .btn.btn-outline-secondary,
+    .historikoa-page .btn.btn-secondary,
+    .historikoa-page .btn.btn-outline-secondary {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .modal-content.bg-dark {
+        background-color: #ffffff !important;
+        color: #212529 !important;
+    }
+    .modal-header.border-secondary,
+    .modal-footer.border-secondary {
+        border-color: #dee2e6 !important;
+    }
+    .btn-close.btn-close-white {
+        filter: invert(1) grayscale(100%) brightness(0) !important;
+    }
+
+    .card.bg-secondary-subtle .text-secondary {
+        color: #6c757d !important;
+    }
+    .card.bg-secondary-subtle .form-label.text-secondary {
+        color: #495057 !important;
+    }
+
+
+    .login-page {
+        background: #ffffff !important;
+        padding: 1.5rem;
+        padding-bottom: 0;
+    }
+
+    .login-card {
+        background-color: #ffffff !important;
+        border: 1px solid #d8e1ff !important;
+        border-radius: 14px;
+        margin: auto;
+    }
+
+    /* Visual adjustments to match Figma login prototype */
+    .topbar {
+        background-color: #1c398e;
+        height: 56px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+    .topbar .container-fluid {
+        padding-left: 1rem;
+    }
+    .login-card {
+        padding: 2rem !important;
+        border-radius: 12px !important;
+    }
+    .login-title {
+        font-size: 1.5rem !important;
+    }
+    .btn-login {
+        background-color: #2b6df6 !important;
+        border-color: #2b6df6 !important;
+        padding: .75rem 1rem !important;
+        font-weight: 700 !important;
+    }
+    .btn-login:hover {
+        background-color: #235be0 !important;
+        border-color: #235be0 !important;
+    }
+    .role-hidden {
+        display: none !important;
+    }
+    .role-badge {
+        display: none !important;
+    }
+
+    .login-title {
+        color: #1c398e;
+        font-weight: 700;
+    }
+
+    .login-subtitle {
+        color: #5c6a8b;
+    }
+
+    .login-label {
+        color: #24408f;
+    }
+
+    .login-input {
+        background-color: #ffffff !important;
+        color: #1f2937 !important;
+        border-color: #bfd0ff !important;
+    }
+
+    .login-input:focus {
+        border-color: #1c398e !important;
+        box-shadow: 0 0 0 0.2rem rgba(28, 57, 142, 0.18) !important;
+    }
+
+    .login-divider {
+        border-color: #d8e1ff !important;
+    }
+
+    .navbar[class*="app"] [data-action="irten"],
+    .app-navbar [data-action="irten"],
+    [data-action="irten"].app-navbar-link,
 
 .login-input:focus {
     border-color: #1c398e !important;
@@ -446,16 +492,19 @@ a[data-action="back"].app-navbar-link {
     cursor: pointer !important;
     box-shadow: none !important;
 }
-
-.navbar[class*="app"] [data-action="atzera"]:hover,
-.navbar[class*="app"] [data-action="back"]:hover,
-.app-navbar [data-action="atzera"]:hover,
-.app-navbar [data-action="back"]:hover,
-[data-action="atzera"].app-navbar-link:hover,
-[data-action="back"].app-navbar-link:hover,
-button[data-action="atzera"].app-navbar-link:hover,
-button[data-action="back"].app-navbar-link:hover,
-a[data-action="atzera"].app-navbar-link:hover,
+        button[data-action="irten"].app-navbar-link,
+        a[data-action="irten"].app-navbar-link {
+            background-color: #dc3545 !important;
+            color: #ffffff !important;
+            border: 0 !important;
+            padding: 0.5rem 1rem !important;
+            border-radius: 0.25rem !important;
+            font-weight: 600 !important;
+            text-decoration: none !important;
+            display: inline-block !important;
+            cursor: pointer !important;
+            box-shadow: none !important;
+        }
 a[data-action="back"].app-navbar-link:hover {
     background-color: #0055cc !important;
     color: #ffffff !important;

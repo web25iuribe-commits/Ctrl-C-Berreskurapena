@@ -1,3 +1,4 @@
+
 package CTRLC.ERRONKA3.controller;
 
 import org.springframework.stereotype.Controller;
@@ -23,11 +24,11 @@ public class AdminPageController {
     private final HistorikoaRepository historikoaRepository;
 
     public AdminPageController(ErabiltzaileRepository erabiltzaileRepository,
-                               EraikinaRepository eraikinaRepository,
-                               GelaRepository gelaRepository,
-                               GailuaRepository gailuaRepository,
-                               SolairuaRepository solairuaRepository,
-                               HistorikoaRepository historikoaRepository) {
+            EraikinaRepository eraikinaRepository,
+            GelaRepository gelaRepository,
+            GailuaRepository gailuaRepository,
+            SolairuaRepository solairuaRepository,
+            HistorikoaRepository historikoaRepository) {
         this.erabiltzaileRepository = erabiltzaileRepository;
         this.eraikinaRepository = eraikinaRepository;
         this.gelaRepository = gelaRepository;
@@ -37,6 +38,16 @@ public class AdminPageController {
     }
 
     @GetMapping("/admin")
+    public String adminWelcomePage(Model model, HttpSession session) {
+        if (!isLoggedIn(session) || !isAdmin(session)) {
+            return "redirect:/login";
+        }
+        model.addAttribute("currentUser", session.getAttribute("loggedUser"));
+        model.addAttribute("role", session.getAttribute("role"));
+        return "welcome_admin";
+    }
+
+    @GetMapping("/admin/kontsulta")
     public String adminKontsultaPage(Model model, HttpSession session) {
         if (!isLoggedIn(session) || !isAdmin(session)) {
             return "redirect:/login";
@@ -44,7 +55,7 @@ public class AdminPageController {
         loadAdminData(model, session);
         return "Kontsulta_admi";
     }
-    
+
     private void loadAdminData(Model model, HttpSession session) {
         model.addAttribute("currentUser", session.getAttribute("loggedUser"));
         model.addAttribute("role", session.getAttribute("role"));

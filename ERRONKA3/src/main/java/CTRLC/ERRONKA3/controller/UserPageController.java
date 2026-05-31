@@ -21,10 +21,10 @@ public class UserPageController {
     private final SolairuaRepository solairuaRepository;
 
     public UserPageController(ErabiltzaileRepository erabiltzaileRepository,
-                              EraikinaRepository eraikinaRepository,
-                              GelaRepository gelaRepository,
-                              GailuaRepository gailuaRepository,
-                              SolairuaRepository solairuaRepository) {
+            EraikinaRepository eraikinaRepository,
+            GelaRepository gelaRepository,
+            GailuaRepository gailuaRepository,
+            SolairuaRepository solairuaRepository) {
         this.erabiltzaileRepository = erabiltzaileRepository;
         this.eraikinaRepository = eraikinaRepository;
         this.gelaRepository = gelaRepository;
@@ -33,7 +33,21 @@ public class UserPageController {
     }
 
     @GetMapping("/user")
-    public String userPage(Model model, HttpSession session) {
+    public String userWelcomePage(Model model, HttpSession session) {
+        if (!isLoggedIn(session)) {
+            return "redirect:/login";
+        }
+        if (isAdmin(session)) {
+            return "redirect:/admin";
+        }
+
+        model.addAttribute("currentUser", session.getAttribute("loggedUser"));
+        model.addAttribute("role", session.getAttribute("role"));
+        return "welcome_user";
+    }
+
+    @GetMapping("/user/kontsulta")
+    public String userKontsultaPage(Model model, HttpSession session) {
         if (!isLoggedIn(session)) {
             return "redirect:/login";
         }

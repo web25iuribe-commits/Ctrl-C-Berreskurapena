@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="eu" xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     FOOTER FRAGMENTA
+     Erabilera: <footer th:replace="~{fragments :: footer}"></footer>
+     ═══════════════════════════════════════════════════════ -->
+<footer th:fragment="footer" class="app-footer">
+  <p>&copy; 2026 Ctrl-C | All rights reserved, designed and developed by Ctrl-C team.</p>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════
+     IRTEN MODAL FRAGMENTA (saioa ixteko berrespena)
+     Erabilera: <div th:replace="~{fragments :: logout-modal}"></div>
+     ═══════════════════════════════════════════════════════ -->
+<div th:fragment="logout-modal"
+     class="modal fade" id="irtenModal" tabindex="-1"
+     aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-dark border border-secondary text-white">
+      <div class="modal-header border-secondary">
+        <h5 class="modal-title">Saioa itxi</h5>
+        <button type="button" class="btn-close btn-close-white"
+                data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">Ziur zaude saioa itxi nahi duzula?</div>
+      <div class="modal-footer border-secondary">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Utzi</button>
+        <a href="/logout" class="btn btn-danger">Irten</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

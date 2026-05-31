@@ -1,294 +1,282 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="eu" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kontsultak</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="/Style.css" rel="stylesheet" />
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
-    <link href="/Style.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <title>Kontsulta_arrunta</title>
-</head>
-
-<body>
-    <nav class="navbar app-navbar px-4 py-3">
-        <div class="container-fluid d-flex justify-content-between align-items-center">
-            <p class="app-navbar-title">Kontsultak | Miguel Altuna</p>
-            <div class="app-navbar-actions">
-                <p class="app-navbar-user">Erabiltzaile arrunta</p>
-                <a href="/logout" class="app-navbar-link" data-action="irten">Irten</a>
-            </div>
+  <body class="bg-dark text-white admin-page">
+    <!-- ═══ NAVBAR ═══ -->
+    <nav class="navbar app-navbar navbar-expand-lg navbar-dark bg-primary px-4 py-3">
+      <div class="container-fluid d-flex justify-content-between align-items-center">
+        <span class="navbar-brand app-navbar-title mb-0">
+          Kontsultak | Miguel Altuna
+        </span>
+        <div class="app-navbar-actions">
+          <span
+            class="app-navbar-user"
+            th:text="${currentUser != null ? currentUser.izena : 'Erabiltzailea'}"
+            >Erabiltzailea</span
+          >
+          <button
+            class="app-navbar-link"
+            data-action="irten"
+            data-bs-toggle="modal"
+            data-bs-target="#irtenModal"
+          >Irten</button>
         </div>
+      </div>
     </nav>
 
-    <div class="app-page-header-spacer"></div>
+    <div class="container-fluid py-4 px-4">
 
-    <div class="container text-center">
-        <div class="row row-cols-1">
-            <div class="shadow p-3 mb-5 bg-body-tertiary rounded">
-                <div class="p-3 mb-2 bg-body-tertiary">
-                    <h2 class="kontsuadmi" style="text-align: center;">Erabiltzailea</h2>
-                    <br>
-                    <div class="container-fluid">
-                        <form class="d-flex" role="search" onsubmit="bilatuErabiltzailea(); return false;">
-                            <input id="bilatu-erabiltzailea" class="form-control me-2" type="search" placeholder="Erabiltzaile izena edo ID-a sartu" aria-label="Bilatu" />
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <button class="btn btn-primary me-md-2" type="submit">Bilatu</button>
-                                <button class="btn btn-outline-secondary" type="button" onclick="garbituBilaketaErabiltzailea()">X</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <br>
-                <table id="erabiltzaileTabla" class="table table-striped-columns">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Izena</th>
-                            <th scope="col">Abizena</th>
-                            <th scope="col">Emaila</th>
-                            <th scope="col">Erabiltzaile Mota</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="erab : ${erabiltzaileak}">
-                            <td th:text="${erab.id_erab}"></td>
-                            <td th:text="${erab.izena}"></td>
-                            <td th:text="${erab.abizena}"></td>
-                            <td th:text="${erab.helbide_elektronikoa}"></td>
-                            <td th:text="${erab.erabiltzaile_mota}"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+      <!-- ── ERABILTZAILEA ── -->
+      <div class="card bg-secondary-subtle border border-secondary mb-4">
+        <div class="card-body">
+          <h5 class="card-title text-white mb-3">Erabiltzailea</h5>
+          <div class="d-flex gap-2 mb-3 bilaketa-talde">
+            <input
+              id="bilatu-erabiltzailea"
+              type="text"
+              class="form-control bg-dark text-white border-secondary"
+              placeholder="Erabiltzaile izena edo ID-a sartu"
+              oninput="bilatuErabiltzailea()"
+            />
+            <button class="btn btn-primary" onclick="bilatuErabiltzailea()">Bilatu</button>
+            <button class="btn btn-outline-secondary" onclick="garbituBilaketaErabiltzailea()">X</button>
+          </div>
+          <div class="table-responsive">
+            <table id="erabiltzaileTabla" class="table table-dark table-bordered table-hover align-middle">
+              <thead class="table-secondary">
+                <tr>
+                  <th>ID</th>
+                  <th>Izena</th>
+                  <th>Abizena</th>
+                  <th>Emaila</th>
+                  <th>Mota</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="erab : ${erabiltzaileak}">
+                  <td th:text="${erab.id_erab}"></td>
+                  <td th:text="${erab.izena}"></td>
+                  <td th:text="${erab.abizena}"></td>
+                  <td th:text="${erab.helbide_elektronikoa}"></td>
+                  <td>
+                    <span
+                      class="badge"
+                      th:classappend="${erab.erabiltzaile_mota == 'admin' or erab.erabiltzaile_mota == 'administrador' ? 'bg-danger' : 'bg-primary'}"
+                      th:text="${erab.erabiltzaile_mota}"
+                    ></span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <div class="container text-center">
-        <div class="row row-cols-1">
-            <div class="shadow p-3 mb-5 bg-body-tertiary rounded">
-                <div class="p-3 mb-2 bg-body-tertiary">
-                    <h2 class="kontsuadmi" style="text-align: center;">Eraikina</h2>
-                    <br>
-                    <div class="container-fluid">
-                        <form class="d-flex" role="search" onsubmit="bilatuEraikina(); return false;">
-                            <input id="bilatu-eraikina" class="form-control me-2" type="search" placeholder="Eraikina izena edo ID-a sartu" aria-label="Bilatu" />
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <button class="btn btn-primary me-md-2" type="submit">Bilatu</button>
-                                <button class="btn btn-outline-secondary" type="button" onclick="garbituBilaketaEraikina()">X</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <br>
-                <table id="eraikinaTabla" class="table table-striped-columns">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Izena</th>
-                            <th scope="col">Helbidea</th>
-                            <th scope="col">Hiria</th>
-                            <th scope="col">Posta-kodea</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="era : ${eraikinak}">
-                            <td th:text="${era.id_eraikina}"></td>
-                            <td th:text="${era.izena}"></td>
-                            <td th:text="${era.helbidea}"></td>
-                            <td th:text="${era.hiria}"></td>
-                            <td th:text="${era.posta_kodea}"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+      <!-- ── ERAIKINA ── -->
+      <div class="card bg-secondary-subtle border border-secondary mb-4">
+        <div class="card-body">
+          <h5 class="card-title text-white mb-3">Eraikina</h5>
+          <div class="d-flex gap-2 mb-3 bilaketa-talde">
+            <input
+              id="bilatu-eraikina"
+              type="text"
+              class="form-control bg-dark text-white border-secondary"
+              placeholder="Eraikina izena edo ID-a sartu"
+              oninput="bilatuEraikina()"
+            />
+            <button class="btn btn-primary" onclick="bilatuEraikina()">Bilatu</button>
+            <button class="btn btn-outline-secondary" onclick="garbituBilaketaEraikina()">X</button>
+          </div>
+          <div class="table-responsive">
+            <table id="eraikinaTabla" class="table table-dark table-bordered table-hover align-middle">
+              <thead class="table-secondary">
+                <tr>
+                  <th>ID</th>
+                  <th>Izena</th>
+                  <th>Helbidea</th>
+                  <th>Hiria</th>
+                  <th>Posta Kodea</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="era : ${eraikinak}">
+                  <td th:text="${era.id_eraikina}"></td>
+                  <td th:text="${era.izena}"></td>
+                  <td th:text="${era.helbidea}"></td>
+                  <td th:text="${era.hiria}"></td>
+                  <td th:text="${era.posta_kodea}"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <div class="container text-center">
-        <div class="row row-cols-1">
-            <div class="shadow p-3 mb-5 bg-body-tertiary rounded">
-                <div class="p-3 mb-2 bg-body-tertiary">
-                    <h2 class="kontsuadmi" style="text-align: center;">Solairua</h2>
-                    <br>
-                    <div class="container-fluid">
-                        <form class="d-flex" role="search" onsubmit="bilatuSolairu(); return false;">
-                            <input id="bilatu-solairu" class="form-control me-2" type="search" placeholder="Solairu ID sartu" aria-label="Bilatu" />
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <button class="btn btn-primary me-md-2" type="submit">Bilatu</button>
-                                <button class="btn btn-outline-secondary" type="button" onclick="garbituBilaketaSolairu()">X</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <br>
-                <table id="solairuTabla" class="table table-striped-columns">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID solairu</th>
-                            <th scope="col">Solairu zenbakia</th>
-                            <th scope="col">ID eraikina</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="s : ${solairuak}">
-                            <td th:text="${s.id_solairua}"></td>
-                            <td th:text="${s.solairu_zenbakia}"></td>
-                            <td th:text="${s.id_eraikina}"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+      <!-- ── GELAK ── -->
+      <div class="card bg-secondary-subtle border border-secondary mb-4">
+        <div class="card-body">
+          <h5 class="card-title text-white mb-3">Gelak</h5>
+          <div class="d-flex gap-2 mb-3 bilaketa-talde">
+            <input
+              id="bilatu-gela"
+              type="text"
+              class="form-control bg-dark text-white border-secondary"
+              placeholder="Gela zenbakia edo Solairua sartu"
+              oninput="bilatuGela()"
+            />
+            <button class="btn btn-primary" onclick="bilatuGela()">Bilatu</button>
+            <button class="btn btn-outline-secondary" onclick="garbituBilaketaGela()">X</button>
+          </div>
+          <div class="table-responsive">
+            <table id="gelaTabla" class="table table-dark table-bordered table-hover align-middle">
+              <thead class="table-secondary">
+                <tr>
+                  <th>Gela Zenbakia</th>
+                  <th>Solairua</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="gela : ${gelak}">
+                  <td th:text="${gela.gela_zenb}"></td>
+                  <td th:text="${gela.id_solairua}"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <div class="container text-center">
-        <div class="row row-cols-1">
-            <div class="shadow p-3 mb-5 bg-body-tertiary rounded">
-                <div class="p-3 mb-2 bg-body-tertiary">
-                    <h2 class="kontsuadmi" style="text-align: center;">Gailuak</h2>
-                    <br>
-                    <div class="container-fluid">
-                        <form class="d-flex" role="search" onsubmit="bilatuGailu(); return false;">
-                            <input id="bilatu-gailu" class="form-control me-2" type="search" placeholder="Gailuaren izena edo ID-a sartu" aria-label="Bilatu" />
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <button class="btn btn-primary me-md-2" type="submit">Bilatu</button>
-                                <button class="btn btn-outline-secondary" type="button" onclick="garbituBilaketaGailu()">X</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <br>
-                <table id="gailuTabla" class="table table-striped-columns">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID Gailua</th>
-                            <th scope="col">Marka</th>
-                            <th scope="col">Modeloa</th>
-                            <th scope="col">Serie zenbakia</th>
-                            <th scope="col">Gela</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="g : ${gailuak}">
-                            <td th:text="${g.id_gailua}"></td>
-                            <td th:text="${g.marka}"></td>
-                            <td th:text="${g.modeloa}"></td>
-                            <td th:text="${g.serie_zenb}"></td>
-                            <td th:text="${g.gela_zenb}"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+      <!-- ── GAILUAK ── -->
+      <div class="card bg-secondary-subtle border border-secondary mb-4">
+        <div class="card-body">
+          <h5 class="card-title text-white mb-3">Gailuak</h5>
+          <div class="d-flex gap-2 mb-3 bilaketa-talde">
+            <input
+              id="bilatu-gailu"
+              type="text"
+              class="form-control bg-dark text-white border-secondary"
+              placeholder="Gailuaren izena edo ID-a sartu"
+              oninput="bilatuGailu()"
+            />
+            <button class="btn btn-primary" onclick="bilatuGailu()">Bilatu</button>
+            <button class="btn btn-outline-secondary" onclick="garbituBilaketaGailu()">X</button>
+          </div>
+          <div class="table-responsive">
+            <table id="gailuTabla" class="table table-dark table-bordered table-hover align-middle">
+              <thead class="table-secondary">
+                <tr>
+                  <th>ID</th>
+                  <th>Marka</th>
+                  <th>Modeloa</th>
+                  <th>Serie Zenbakia</th>
+                  <th>Gela</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="g : ${gailuak}">
+                  <td th:text="${g.id_gailua}"></td>
+                  <td th:text="${g.marka}"></td>
+                  <td th:text="${g.modeloa}"></td>
+                  <td th:text="${g.serie_zenb}"></td>
+                  <td th:text="${g.gela_zenb}"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <div class="container text-center">
-        <div class="row row-cols-1">
-            <div class="shadow p-3 mb-5 bg-body-tertiary rounded">
-                <div class="p-3 mb-2 bg-body-tertiary">
-                    <h2 class="kontsuadmi" style="text-align: center;">Gelak</h2>
-                    <br>
-                    <div class="container-fluid">
-                        <form class="d-flex" role="search" onsubmit="bilatuGela(); return false;">
-                            <input id="bilatu-gela" class="form-control me-2" type="search" placeholder="Gela zenbakia edo Solairua sartu" aria-label="Bilatu" />
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <button class="btn btn-primary me-md-2" type="submit">Bilatu</button>
-                                <button class="btn btn-outline-secondary" type="button" onclick="garbituBilaketaGela()">X</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <br>
-                <table id="gelaTabla" class="table table-striped-columns">
-                    <thead>
-                        <tr>
-                            <th scope="col">Gela zenbakia</th>
-                            <th scope="col">Solairua</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="gela : ${gelak}">
-                            <td th:text="${gela.gela_zenb}"></td>
-                            <td th:text="${gela.id_solairua}"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+      <!-- ── SOLAIRUAK ── -->
+      <div class="card bg-secondary-subtle border border-secondary mb-4">
+        <div class="card-body">
+          <h5 class="card-title text-white mb-3">Solairuak</h5>
+          <div class="d-flex gap-2 mb-3 bilaketa-talde">
+            <input
+              id="bilatu-solairu"
+              type="text"
+              class="form-control bg-dark text-white border-secondary"
+              placeholder="Solairu ID sartu"
+              oninput="bilatuSolairu()"
+            />
+            <button class="btn btn-primary" onclick="bilatuSolairu()">Bilatu</button>
+            <button class="btn btn-outline-secondary" onclick="garbituBilaketaSolairu()">X</button>
+          </div>
+          <div class="table-responsive">
+            <table id="solairuTabla" class="table table-dark table-bordered table-hover align-middle">
+              <thead class="table-secondary">
+                <tr>
+                  <th>ID Solairu</th>
+                  <th>Solairu Zenbakia</th>
+                  <th>ID Eraikina</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="s : ${solairuak}">
+                  <td th:text="${s.id_solairua}"></td>
+                  <td th:text="${s.solairu_zenbakia}"></td>
+                  <td th:text="${s.id_eraikina}"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+      </div>
+
     </div>
+    <!-- /container-fluid -->
 
-    <br>
-    <br>
+    <!-- Irten modala (fragmenttik) -->
+    <div th:replace="~{fragments :: logout-modal}"></div>
 
-    <footer class="app-footer">
-        <p>&copy; 2026 Ctrl-C | All rights reserved, designed and developed by Ctrl-C team.</p>
-    </footer>
+    <footer th:replace="~{fragments :: footer}"></footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/logout-confirm.js"></script>
     <script>
-        // Aplicar estilos a botones con data-action
-        function applyActionButtonStyles() {
-          // Botones Irten (Logout) - ROJO
-          document.querySelectorAll('[data-action="irten"]').forEach(button => {
-            button.style.backgroundColor = '#dc3545';
-            button.style.color = '#ffffff';
-            button.style.border = 'none';
-            button.style.padding = '0.5rem 1rem';
-            button.style.borderRadius = '0.25rem';
-            button.style.fontWeight = '600';
-            button.style.textDecoration = 'none';
-            button.style.cursor = 'pointer';
-            button.style.display = 'inline-block';
-            button.onmouseenter = () => { button.style.backgroundColor = '#c82333'; button.style.textDecoration = 'none'; };
-            button.onmouseleave = () => { button.style.backgroundColor = '#dc3545'; button.style.textDecoration = 'none'; };
-          });
+      function applyActionButtonStyles() {
+        document.querySelectorAll('[data-action="irten"]').forEach((btn) => {
+          btn.style.backgroundColor = "#dc3545"; btn.style.color = "#fff";
+          btn.style.border = "none"; btn.style.padding = "0.5rem 1rem";
+          btn.style.borderRadius = "0.25rem"; btn.style.fontWeight = "600";
+          btn.style.cursor = "pointer"; btn.style.display = "inline-block";
+          btn.onmouseenter = () => { btn.style.backgroundColor = "#c82333"; };
+          btn.onmouseleave = () => { btn.style.backgroundColor = "#dc3545"; };
+        });
+      }
+      document.readyState === "loading"
+        ? document.addEventListener("DOMContentLoaded", applyActionButtonStyles)
+        : applyActionButtonStyles();
 
-          // Botones Atzera/Back - AZUL
-          document.querySelectorAll('[data-action="atzera"], [data-action="back"]').forEach(button => {
-            button.style.backgroundColor = '#0052cc';
-            button.style.color = '#ffffff';
-            button.style.border = 'none';
-            button.style.padding = '0.5rem 1rem';
-            button.style.borderRadius = '0.25rem';
-            button.style.fontWeight = '600';
-            button.style.textDecoration = 'none';
-            button.style.cursor = 'pointer';
-            button.style.display = 'inline-block';
-            button.onmouseenter = () => { button.style.backgroundColor = '#0043a3'; button.style.textDecoration = 'none'; };
-            button.onmouseleave = () => { button.style.backgroundColor = '#0052cc'; button.style.textDecoration = 'none'; };
-          });
-        }
-        
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', applyActionButtonStyles);
-        } else {
-          applyActionButtonStyles();
-        }
-
-        function bilatu(inputId, tablaId) {
-            const b = document.getElementById(inputId).value.trim().toLowerCase();
-            document.querySelectorAll('#'+tablaId+' tbody tr').forEach(tr => {
-                tr.style.display = tr.textContent.toLowerCase().includes(b) ? '' : 'none';
-            });
-        }
-        function garbitu(inputId, tablaId) {
-            document.getElementById(inputId).value = '';
-            document.querySelectorAll('#'+tablaId+' tbody tr').forEach(tr => tr.style.display = '');
-        }
-        function bilatuErabiltzailea()        { bilatu('bilatu-erabiltzailea','erabiltzaileTabla'); }
-        function garbituBilaketaErabiltzailea(){ garbitu('bilatu-erabiltzailea','erabiltzaileTabla'); }
-        function bilatuEraikina()             { bilatu('bilatu-eraikina','eraikinaTabla'); }
-        function garbituBilaketaEraikina()    { garbitu('bilatu-eraikina','eraikinaTabla'); }
-        function bilatuGela()                 { bilatu('bilatu-gela','gelaTabla'); }
-        function garbituBilaketaGela()        { garbitu('bilatu-gela','gelaTabla'); }
-        function bilatuGailu()                { bilatu('bilatu-gailu','gailuTabla'); }
-        function garbituBilaketaGailu()       { garbitu('bilatu-gailu','gailuTabla'); }
-        function bilatuSolairu()              { bilatu('bilatu-solairu','solairuTabla'); }
-        function garbituBilaketaSolairu()     { garbitu('bilatu-solairu','solairuTabla'); }
+      function bilatu(inputId, tablaId) {
+        const b = document.getElementById(inputId).value.trim().toLowerCase();
+        document.querySelectorAll("#" + tablaId + " tbody tr").forEach((tr) => {
+          tr.style.display = tr.textContent.toLowerCase().includes(b) ? "" : "none";
+        });
+      }
+      function garbitu(inputId, tablaId) {
+        document.getElementById(inputId).value = "";
+        document.querySelectorAll("#" + tablaId + " tbody tr").forEach((tr) => (tr.style.display = ""));
+      }
+      function bilatuErabiltzailea()         { bilatu("bilatu-erabiltzailea", "erabiltzaileTabla"); }
+      function garbituBilaketaErabiltzailea() { garbitu("bilatu-erabiltzailea", "erabiltzaileTabla"); }
+      function bilatuEraikina()              { bilatu("bilatu-eraikina", "eraikinaTabla"); }
+      function garbituBilaketaEraikina()     { garbitu("bilatu-eraikina", "eraikinaTabla"); }
+      function bilatuGela()                  { bilatu("bilatu-gela", "gelaTabla"); }
+      function garbituBilaketaGela()         { garbitu("bilatu-gela", "gelaTabla"); }
+      function bilatuGailu()                 { bilatu("bilatu-gailu", "gailuTabla"); }
+      function garbituBilaketaGailu()        { garbitu("bilatu-gailu", "gailuTabla"); }
+      function bilatuSolairu()               { bilatu("bilatu-solairu", "solairuTabla"); }
+      function garbituBilaketaSolairu()      { garbitu("bilatu-solairu", "solairuTabla"); }
     </script>
-</body>
-
+  </body>
 </html>

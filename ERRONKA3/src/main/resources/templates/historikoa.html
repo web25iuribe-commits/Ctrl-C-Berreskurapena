@@ -1,242 +1,289 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="eu" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Historikoa</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <link href="/Style.css" rel="stylesheet"/>
-  <style>
-    body.historikoa-page {
-      background: #f8f9fb !important;
-      color: #212529 !important;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Historikoa</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="/Style.css" rel="stylesheet" />
+    <style>
+      body.historikoa-page {
+        background: #f4f5f7 !important;
+        color: #212529 !important;
+      }
+      body.historikoa-page .container-fluid.py-4 {
+        max-width: 1220px !important;
+        margin: 0 auto !important;
+      }
+      body.historikoa-page .card.bg-secondary-subtle {
+        background: #ffffff !important;
+        border: 0 !important;
+        border-radius: 0.75rem !important;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08) !important;
+      }
+      body.historikoa-page .card-title.text-white {
+        color: #1f2a44 !important;
+        font-size: 1.1rem !important;
+        font-weight: 700 !important;
+      }
+      /* ── Tabla ── */
+      body.historikoa-page .table {
+        --bs-table-bg: #ffffff !important;
+        --bs-table-color: #212529 !important;
+        --bs-table-border-color: #dee2e6 !important;
+      }
+      body.historikoa-page .table thead th {
+        background: #1c398e !important;
+        color: #ffffff !important;
+        border-color: #16307a !important;
+        font-weight: 600 !important;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      body.historikoa-page .table > :not(caption) > * > * {
+        color: #212529 !important;
+        vertical-align: middle;
+      }
+      body.historikoa-page .table tbody tr:nth-child(odd) > * {
+        background: #ffffff !important;
+      }
+      body.historikoa-page .table tbody tr:nth-child(even) > * {
+        background: #f4f5f7 !important;
+      }
+      body.historikoa-page .table tbody tr:hover > * {
+        background: #e9ecef !important;
+      }
+      /* ── Badges ── */
+      body.historikoa-page .badge {
+        font-size: 0.72rem;
+        padding: 0.3em 0.65em;
+        border-radius: 0.4rem;
+        font-weight: 600;
+      }
+      /* ── Oharra ── */
+      .oharra-render {
+        font-size: 0.82rem;
+        word-break: break-word;
+        line-height: 1.45;
+        white-space: normal;
+      }
+      .oharra-old { color: #6c757d; }
+      .oharra-arrow { color: #adb5bd; font-size: 0.8rem; padding: 0 0.15rem; }
+      .oharra-new { color: #1c398e; font-weight: 600; }
+      /* ── Buscador ── */
+      body.historikoa-page .form-control {
+        border-color: #ced4da !important;
+      }
+      body.historikoa-page .form-control:focus {
+        border-color: #1c398e !important;
+        box-shadow: 0 0 0 0.15rem rgba(28, 57, 142, 0.15) !important;
+      }
+      body.historikoa-page .btn {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+      }
+    </style>
+  </head>
+  <body class="bg-dark text-white historikoa-page">
 
-    body.historikoa-page .container-fluid.py-4 {
-      max-width: 1220px !important;
-      margin: 0 auto !important;
-    }
-
-    body.historikoa-page .card.bg-secondary-subtle {
-      background: #f8f9fa !important;
-      border: 0 !important;
-      border-radius: .7rem !important;
-      box-shadow: 0 .5rem 1rem rgba(0,0,0,.12) !important;
-    }
-
-    body.historikoa-page .card-title.text-white {
-      color: #1f2a44 !important;
-      text-align: center !important;
-      font-size: 1.7rem !important;
-      font-weight: 700 !important;
-    }
-
-    body.historikoa-page .form-control.bg-dark {
-      background: #fff !important;
-      color: #212529 !important;
-      border-color: #d2d9e6 !important;
-    }
-
-    body.historikoa-page .table.table-striped-columns {
-      --bs-table-bg: #fff !important;
-      --bs-table-color: #212529 !important;
-      --bs-table-striped-bg: #eef2f7 !important;
-      --bs-table-hover-bg: #e4ebf8 !important;
-      --bs-table-border-color: #d6dbe6 !important;
-      border-color: #d6dbe6 !important;
-    }
-
-    body.historikoa-page .table.table-striped-columns thead th {
-      background: #e9ecef !important;
-      color: #212529 !important;
-      border-color: #d6dbe6 !important;
-      border-bottom: 2px solid #d6dbe6 !important;
-      font-weight: 700 !important;
-    }
-
-    body.historikoa-page .table.table-striped-columns tbody tr {
-      border-bottom: 1px solid #d6dbe6 !important;
-    }
-
-    body.historikoa-page .table.table-striped-columns > :not(caption) > * > * {
-      color: #212529 !important;
-      background: transparent !important;
-    }
-
-    body.historikoa-page .table.table-striped-columns tbody tr:nth-child(odd) > * { background: #f8f9fa !important; }
-    body.historikoa-page .table.table-striped-columns tbody tr:nth-child(even) > * { background: #eef2f7 !important; }
-
-    body.historikoa-page .btn { margin-top: 0 !important; margin-bottom: 0 !important; }
-
-    .historikoa-version-badge {
-      display: inline-block;
-      background: #dfe8ff;
-      color: #1c398e;
-      border: 1px solid #bfd0ff;
-      border-radius: 999px;
-      padding: .25rem .75rem;
-      font-size: .85rem;
-      font-weight: 600;
-    }
-  </style>
-</head>
-<body class="bg-dark text-white historikoa-page">
-
-  <nav class="navbar app-navbar px-4 py-3">
-    <div class="container-fluid d-flex justify-content-between align-items-center">
-      <span class="navbar-brand app-navbar-title">Admin | Miguel Altuna</span>
-      <div class="app-navbar-actions">
-        <span class="app-navbar-user" th:text="${currentUser != null ? currentUser.izena : 'admin'}">admin</span>
-        <a th:href="@{/admin}" class="app-navbar-link" data-action="atzera">Atzera</a>
-        <button class="app-navbar-link" data-action="irten" data-bs-toggle="modal" data-bs-target="#irtenModal">Irten</button>
+    <!-- ═══ NAVBAR ═══ -->
+    <nav class="navbar app-navbar navbar-expand-lg navbar-dark bg-primary px-4 py-3">
+      <div class="container-fluid d-flex justify-content-between align-items-center">
+        <span class="navbar-brand app-navbar-title">Historikoa | Miguel Altuna</span>
+        <div class="app-navbar-actions">
+          <span
+            class="app-navbar-user"
+            th:text="${currentUser != null ? currentUser.izena : 'admin'}"
+            >admin</span
+          >
+          <a th:href="@{/admin/kontsulta}" class="app-navbar-link" data-action="atzera">Atzera</a>
+          <button
+            class="app-navbar-link"
+            data-action="irten"
+            data-bs-toggle="modal"
+            data-bs-target="#irtenModal"
+          >Irten</button>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
 
-  <div class="container-fluid py-4 px-4">
-    <div class="card bg-secondary-subtle border border-secondary">
-      <div class="card-body">
+    <div class="container-fluid py-4 px-4">
+      <div class="card bg-secondary-subtle border border-secondary">
+        <div class="card-body">
 
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <h5 class="card-title text-white mb-0">Historikoa</h5>
-          <div class="input-group" style="max-width: 320px;">
-            <input id="bilatu-input" type="text" class="form-control bg-dark text-white border-secondary" placeholder="Bilatu..."/>
-            <button class="btn btn-primary" onclick="bilatuHistoria()">Bilatu</button>
-            <button class="btn btn-outline-secondary" onclick="garbituBilaketa()">X</button>
+          <!-- Titulua + bilaketa -->
+          <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+            <h5 class="card-title text-white mb-0">Aldaketen Historikoa</h5>
+            <div class="d-flex gap-2 bilaketa-talde" style="max-width: 340px;">
+              <input
+                id="bilatu-input"
+                type="text"
+                class="form-control border-secondary"
+                placeholder="Bilatu..."
+                oninput="bilatuHistoria()"
+              />
+              <button class="btn btn-primary" onclick="bilatuHistoria()">Bilatu</button>
+              <button class="btn btn-outline-secondary" onclick="garbituBilaketa()">✕</button>
+            </div>
           </div>
-        </div>
 
-        <div class="table-responsive">
-          <table id="historikoaTabla" class="table table-striped-columns">
-            <thead class="table-secondary text-dark">
-              <tr>
-                <th>ID</th>
-                <th>Taula</th>
-                <th>Ekintza</th>
-                <th>Data</th>
-                <th>Oharra (Zaharra → Berria)</th>
-              </tr>
-            </thead>
-            <tbody id="historikoaBody">
-              <tr th:if="${#lists.isEmpty(historikoak)}">
-                <td colspan="5" class="text-center text-secondary">Ez dago historiko erregistrorik.</td>
-              </tr>
-              <tr th:each="hist : ${historikoak}">
-                <td th:text="${hist.id_hist}">1</td>
-                <td>
-                  <span class="badge"
-                        th:classappend="${#strings.equalsIgnoreCase(hist.taula, 'Erabiltzailea')} ? ' bg-primary' : ' bg-info text-dark'"
-                        th:text="${hist.taula}">Taula</span>
-                </td>
-                <td>
-                  <span class="badge"
-                        th:classappend="${#strings.equalsIgnoreCase(hist.ekintza, 'Sortu') or #strings.equalsIgnoreCase(hist.ekintza, 'INSERT')} ? ' bg-success' : (${#strings.equalsIgnoreCase(hist.ekintza, 'Aldatu') or #strings.equalsIgnoreCase(hist.ekintza, 'UPDATE')} ? ' bg-warning text-dark' : ' bg-danger')"
-                        th:text="${hist.ekintza}">Ekintza</span>
-                </td>
-                <td th:text="${hist.data_aldaketa != null ? #dates.format(hist.data_aldaketa, 'yyyy-MM-dd HH:mm:ss') : '-'}">2026-04-21 08:30:00</td>
-                <td th:text="${hist.oharra != null and !#strings.isEmpty(hist.oharra) ? hist.oharra : '-'}">Oharra</td>
-              </tr>
-            </tbody>
-          </table>
+          <!-- Taula -->
+          <div class="table-responsive">
+            <table id="historikoaTabla" class="table table-hover align-middle">
+              <thead>
+                <tr>
+                  <th style="width:60px">ID</th>
+                  <th>Taula</th>
+                  <th>Ekintza</th>
+                  <th>Data</th>
+                  <th>Oharra</th>
+                </tr>
+              </thead>
+              <tbody id="historikoaBody">
+                <tr th:if="${#lists.isEmpty(historikoak)}">
+                  <td colspan="5" class="text-center py-4 text-secondary">
+                    Ez dago historiko erregistrorik.
+                  </td>
+                </tr>
+                <tr th:each="hist : ${historikoak}">
+                  <td>
+                    <span class="text-muted small fw-semibold" th:text="${hist.id_hist}">1</span>
+                  </td>
+                  <td>
+                    <span class="badge bg-light border text-dark" th:text="${hist.taula}">Taula</span>
+                  </td>
+                  <td>
+                    <span
+                      class="badge"
+                      th:classappend="${#strings.equalsIgnoreCase(hist.ekintza, 'Sortu') or #strings.equalsIgnoreCase(hist.ekintza, 'INSERT')} ? 'bg-primary'
+                                     : (${#strings.equalsIgnoreCase(hist.ekintza, 'Aldatu') or #strings.equalsIgnoreCase(hist.ekintza, 'UPDATE')} ? 'bg-secondary'
+                                     : 'bg-dark')"
+                      th:text="${hist.ekintza}"
+                      >Ekintza</span
+                    >
+                  </td>
+                  <td
+                    class="small text-nowrap"
+                    th:text="${hist.data_aldaketa != null
+                              ? #dates.format(hist.data_aldaketa, 'yyyy-MM-dd HH:mm')
+                              : '-'}"
+                  ></td>
+                  <td>
+                    <div
+                      class="oharra-render"
+                      th:attr="data-oharra=${hist.oharra != null and !#strings.isEmpty(hist.oharra) ? hist.oharra : ''}"
+                    ></div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
         </div>
       </div>
     </div>
-  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    function bilatuHistoria() {
-      const bilaketa = document.getElementById('bilatu-input').value.trim().toLowerCase();
-      document.querySelectorAll('#historikoaTabla tbody tr').forEach(tr => {
-        tr.style.display = tr.textContent.toLowerCase().includes(bilaketa) ? '' : 'none';
-      });
-    }
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/logout-confirm.js"></script>
+    <script>
+      function bilatuHistoria() {
+        const b = document.getElementById("bilatu-input").value.trim().toLowerCase();
+        document.querySelectorAll("#historikoaTabla tbody tr").forEach((tr) => {
+          tr.style.display = tr.textContent.toLowerCase().includes(b) ? "" : "none";
+        });
+      }
+      function garbituBilaketa() {
+        document.getElementById("bilatu-input").value = "";
+        document.querySelectorAll("#historikoaTabla tbody tr").forEach((tr) => (tr.style.display = ""));
+      }
+      function applyActionButtonStyles() {
+        document.querySelectorAll('[data-action="irten"]').forEach((btn) => {
+          btn.style.backgroundColor = "#dc3545";
+          btn.style.color = "#fff";
+          btn.style.border = "none";
+          btn.style.padding = "0.5rem 1rem";
+          btn.style.borderRadius = "0.25rem";
+          btn.style.fontWeight = "600";
+          btn.style.cursor = "pointer";
+          btn.style.display = "inline-block";
+          btn.onmouseenter = () => { btn.style.backgroundColor = "#c82333"; };
+          btn.onmouseleave = () => { btn.style.backgroundColor = "#dc3545"; };
+        });
+        document.querySelectorAll('[data-action="atzera"]').forEach((btn) => {
+          btn.style.backgroundColor = "#0066ff";
+          btn.style.color = "#fff";
+          btn.style.border = "none";
+          btn.style.padding = "0.5rem 1rem";
+          btn.style.borderRadius = "0.25rem";
+          btn.style.fontWeight = "600";
+          btn.style.textDecoration = "none";
+          btn.style.cursor = "pointer";
+          btn.style.display = "inline-block";
+          btn.onmouseenter = () => { btn.style.backgroundColor = "#0055cc"; };
+          btn.onmouseleave = () => { btn.style.backgroundColor = "#0066ff"; };
+        });
+      }
+      document.readyState === "loading"
+        ? document.addEventListener("DOMContentLoaded", applyActionButtonStyles)
+        : applyActionButtonStyles();
 
-    function garbituBilaketa() {
-      document.getElementById('bilatu-input').value = '';
-      document.querySelectorAll('#historikoaTabla tbody tr').forEach(tr => tr.style.display = '');
-    }
+      // ── OHARRA FORMATUA ──────────────────────────────────────────────────
+      function escHtml(s) {
+        return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      }
 
-    function applyActionButtonStyles() {
-      // Botones Irten (Logout) - ROJO
-      document.querySelectorAll('[data-action="irten"]').forEach(button => {
-        button.style.backgroundColor = '#dc3545';
-        button.style.color = '#ffffff';
-        button.style.border = 'none';
-        button.style.padding = '0.5rem 1rem';
-        button.style.borderRadius = '0.25rem';
-        button.style.fontWeight = '600';
-        button.style.textDecoration = 'none';
-        button.style.cursor = 'pointer';
-        button.style.display = 'inline-block';
-        button.onmouseenter = () => { button.style.backgroundColor = '#c82333'; button.style.textDecoration = 'none'; };
-        button.onmouseleave = () => { button.style.backgroundColor = '#dc3545'; button.style.textDecoration = 'none'; };
-      });
+      function formatOharra(raw) {
+        if (!raw || raw.trim() === "") {
+          return '<span class="text-muted small">—</span>';
+        }
 
-      // Botones Atzera/Back - AZUL CLARO
-      document.querySelectorAll('[data-action="atzera"], [data-action="back"]').forEach(button => {
-        button.style.backgroundColor = '#0066ff';
-        button.style.color = '#ffffff';
-        button.style.border = 'none';
-        button.style.padding = '0.5rem 1rem';
-        button.style.borderRadius = '0.25rem';
-        button.style.fontWeight = '600';
-        button.style.textDecoration = 'none';
-        button.style.cursor = 'pointer';
-        button.style.display = 'inline-block';
-        button.onmouseenter = () => { button.style.backgroundColor = '#0055cc'; button.style.textDecoration = 'none'; };
-        button.onmouseleave = () => { button.style.backgroundColor = '#0066ff'; button.style.textDecoration = 'none'; };
-      });
+        let old_ = null, new_ = null;
 
-      // Botones Editorea - VERDE
-      document.querySelectorAll('[data-action="editorea"]').forEach(button => {
-        button.style.backgroundColor = '#28a745';
-        button.style.color = '#ffffff';
-        button.style.border = 'none';
-        button.style.padding = '0.5rem 1rem';
-        button.style.borderRadius = '0.25rem';
-        button.style.fontWeight = '600';
-        button.style.textDecoration = 'none';
-        button.style.cursor = 'pointer';
-        button.style.display = 'inline-block';
-        button.onmouseenter = () => { button.style.backgroundColor = '#218838'; button.style.textDecoration = 'none'; };
-        button.onmouseleave = () => { button.style.backgroundColor = '#28a745'; button.style.textDecoration = 'none'; };
-      });
+        // Patroi 1: "old: X, new: Y" (tarteko koma eta espazio guztiekin)
+        let m = raw.match(/old\s*:\s*([\s\S]+?)(?:,\s*new\s*:\s*|(?<!\S)new\s*:\s*)([\s\S]+)$/i);
+        if (m) { old_ = m[1].trim(); new_ = m[2].trim(); }
 
-      // Botones Historikoa - AZUL CLARO
-      document.querySelectorAll('[data-action="historikoa"]').forEach(button => {
-        button.style.backgroundColor = '#17a2b8';
-        button.style.color = '#ffffff';
-        button.style.border = 'none';
-        button.style.padding = '0.5rem 1rem';
-        button.style.borderRadius = '0.25rem';
-        button.style.fontWeight = '600';
-        button.style.textDecoration = 'none';
-        button.style.cursor = 'pointer';
-        button.style.display = 'inline-block';
-        button.onmouseenter = () => { button.style.backgroundColor = '#138496'; button.style.textDecoration = 'none'; };
-        button.onmouseleave = () => { button.style.backgroundColor = '#17a2b8'; button.style.textDecoration = 'none'; };
-      });
-    }
-    
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', applyActionButtonStyles);
-    } else {
-      applyActionButtonStyles();
-    }
-  </script>
+        // Patroi 2: "zaharra: X, berria: Y"
+        if (!m) {
+          m = raw.match(/zaharra\s*:\s*([\s\S]+?)(?:,\s*berria\s*:\s*)([\s\S]+)$/i);
+          if (m) { old_ = m[1].trim(); new_ = m[2].trim(); }
+        }
 
-  <!-- Irten -->
-  <div class="modal fade" id="irtenModal" tabindex="-1" aria-modal="true" role="dialog">
-    <div class="modal-dialog modal-dialog-centered"><div class="modal-content bg-dark border border-secondary text-white">
-      <div class="modal-header border-secondary"><h5 class="modal-title">Saioa itxi</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
-      <div class="modal-body">Ziur zaude saioa itxi nahi duzula?</div>
-      <div class="modal-footer border-secondary"><button class="btn btn-secondary" data-bs-dismiss="modal">Utzi</button><a href="/logout" class="btn btn-danger">Irten</a></div>
-    </div></div>
-  </div>
+        // Patroi 3: "X → Y" edo "X -> Y"
+        if (!m) {
+          m = raw.match(/^([\s\S]+?)\s*(?:→|->)\s*([\s\S]+)$/);
+          if (m) { old_ = m[1].trim(); new_ = m[2].trim(); }
+        }
 
-  <footer class="app-footer">
-    <p>&copy; 2026 Ctrl-C | All rights reserved, designed and developed by Ctrl-C team.</p>
-  </footer>
-</body>
+        if (old_ !== null && new_ !== null) {
+          return `<span class="oharra-render d-inline-flex align-items-baseline flex-wrap gap-1">
+            <span class="oharra-old">${escHtml(old_)}</span>
+            <span class="oharra-arrow">→</span>
+            <span class="oharra-new">${escHtml(new_)}</span>
+          </span>`;
+        }
+
+        // Fallback: testu osoa, garbi
+        return `<span class="oharra-render text-secondary small">${escHtml(raw)}</span>`;
+      }
+
+      function renderOharrak() {
+        document.querySelectorAll(".oharra-render[data-oharra]").forEach((el) => {
+          el.innerHTML = formatOharra(el.getAttribute("data-oharra") || "");
+          el.removeAttribute("data-oharra");
+        });
+      }
+
+      document.readyState === "loading"
+        ? document.addEventListener("DOMContentLoaded", renderOharrak)
+        : renderOharrak();
+    </script>
+
+    <div th:replace="~{fragments :: logout-modal}"></div>
+    <footer th:replace="~{fragments :: footer}"></footer>
+  </body>
 </html>

@@ -133,7 +133,10 @@
             th:text="${currentUser != null ? currentUser.izena : 'admin'}"
             >admin</span
           >
-          <a th:href="@{/admin/kontsulta}" class="app-navbar-link" data-action="atzera"
+          <a
+            th:href="@{/admin/kontsulta}"
+            class="app-navbar-link"
+            data-action="atzera"
             >Atzera</a
           >
           <button
@@ -730,7 +733,6 @@
       </div>
     </div>
 
-    <!-- Sortu erabiltzailea -->
     <div
       class="modal fade"
       id="sortuErabiltzaileModal"
@@ -740,7 +742,7 @@
     >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-dark border border-secondary text-white">
-          <form method="post" action="/admin/erabiltzailea/save">
+          <form method="post" action="/admin/erabiltzailea/save" novalidate>
             <div class="modal-header border-secondary">
               <h5 class="modal-title">Sortu erabiltzailea</h5>
               <button
@@ -760,6 +762,7 @@
                   placeholder="E001"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -769,8 +772,12 @@
                   type="text"
                   class="form-control bg-dark text-white border-secondary"
                   placeholder="12345678A"
+                  pattern="[0-9]{8}[A-Za-z]"
                   required
                 />
+                <div class="invalid-feedback">
+                  NAN formatua: 8 zenbaki + Letra bat (adib. 12345678A)
+                </div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -782,6 +789,7 @@
                   placeholder="Izena"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -793,6 +801,7 @@
                   placeholder="Abizena"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -804,6 +813,9 @@
                   placeholder="emaila@adibidea.com"
                   required
                 />
+                <div class="invalid-feedback">
+                  Sartu email baliogarri bat (adib. emaila@adibidea.com)
+                </div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -815,6 +827,7 @@
                   placeholder="••••••••"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -842,7 +855,6 @@
       </div>
     </div>
 
-    <!-- Aldatu erabiltzailea -->
     <div
       class="modal fade"
       id="aldatuErabiltzaileModal"
@@ -852,7 +864,7 @@
     >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-dark border border-secondary text-white">
-          <form method="post" action="/admin/erabiltzailea/update">
+          <form method="post" action="/admin/erabiltzailea/update" novalidate>
             <div class="modal-header border-secondary">
               <h5 class="modal-title">Aldatu erabiltzailea</h5>
               <button
@@ -871,8 +883,12 @@
                   name="NAN"
                   type="text"
                   class="form-control bg-dark text-white border-secondary"
+                  pattern="[0-9]{8}[A-Za-z]"
                   required
                 />
+                <div class="invalid-feedback">
+                  NAN formatua: 8 zenbaki + letra bat (adib. 12345678A)
+                </div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -884,6 +900,7 @@
                   class="form-control bg-dark text-white border-secondary"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -895,6 +912,7 @@
                   class="form-control bg-dark text-white border-secondary"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -906,6 +924,9 @@
                   class="form-control bg-dark text-white border-secondary"
                   required
                 />
+                <div class="invalid-feedback">
+                  Sartu email baliogarri bat (adib. emaila@adibidea.com)
+                </div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -918,6 +939,7 @@
                   placeholder="••••••••"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -946,7 +968,6 @@
       </div>
     </div>
 
-    <!-- Sortu eraikina -->
     <div
       class="modal fade"
       id="sortuEraikinaModal"
@@ -956,7 +977,7 @@
     >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-dark border border-secondary text-white">
-          <form method="post" action="/admin/eraikina/save">
+          <form method="post" action="/admin/eraikina/save" novalidate>
             <div class="modal-header border-secondary">
               <h5 class="modal-title">Sortu Eraikina</h5>
               <button
@@ -976,6 +997,7 @@
                   placeholder="E001"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -987,6 +1009,7 @@
                   placeholder="Eraikina izena"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -998,6 +1021,7 @@
                   placeholder="Helbidea"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -1009,6 +1033,7 @@
                   placeholder="Hiria"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -1020,6 +1045,7 @@
                   placeholder="00000"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
             </div>
             <div class="modal-footer border-secondary">
@@ -1036,7 +1062,6 @@
       </div>
     </div>
 
-    <!-- Aldatu eraikina -->
     <div
       class="modal fade"
       id="aldatuEraikinaModal"
@@ -1046,7 +1071,7 @@
     >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-dark border border-secondary text-white">
-          <form method="post" action="/admin/eraikina/update">
+          <form method="post" action="/admin/eraikina/update" novalidate>
             <div class="modal-header border-secondary">
               <h5 class="modal-title">Aldatu Eraikina</h5>
               <button
@@ -1067,6 +1092,7 @@
                   class="form-control bg-dark text-white border-secondary"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -1078,6 +1104,7 @@
                   class="form-control bg-dark text-white border-secondary"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -1089,6 +1116,7 @@
                   class="form-control bg-dark text-white border-secondary"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -1100,6 +1128,7 @@
                   class="form-control bg-dark text-white border-secondary"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
             </div>
             <div class="modal-footer border-secondary">
@@ -1116,7 +1145,6 @@
       </div>
     </div>
 
-    <!-- Sortu gela -->
     <div
       class="modal fade"
       id="sortuGelaModal"
@@ -1126,7 +1154,7 @@
     >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-dark border border-secondary text-white">
-          <form method="post" action="/admin/gela/save">
+          <form method="post" action="/admin/gela/save" novalidate>
             <div class="modal-header border-secondary">
               <h5 class="modal-title">Gelak sortu</h5>
               <button
@@ -1146,6 +1174,7 @@
                   placeholder="101"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -1157,6 +1186,7 @@
                   placeholder="S001"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
             </div>
             <div class="modal-footer border-secondary">
@@ -1173,7 +1203,6 @@
       </div>
     </div>
 
-    <!-- Aldatu gela -->
     <div
       class="modal fade"
       id="aldatuGelaModal"
@@ -1183,7 +1212,7 @@
     >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-dark border border-secondary text-white">
-          <form method="post" action="/admin/gela/update">
+          <form method="post" action="/admin/gela/update" novalidate>
             <div class="modal-header border-secondary">
               <h5 class="modal-title">Aldatu Gela</h5>
               <button
@@ -1203,6 +1232,7 @@
                   class="form-control bg-dark text-white border-secondary"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -1214,6 +1244,7 @@
                   class="form-control bg-dark text-white border-secondary"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
             </div>
             <div class="modal-footer border-secondary">
@@ -1230,7 +1261,6 @@
       </div>
     </div>
 
-    <!-- Sortu gailu -->
     <div
       class="modal fade"
       id="sortuGailuModal"
@@ -1240,7 +1270,7 @@
     >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-dark border border-secondary text-white">
-          <form method="post" action="/admin/gailua/save">
+          <form method="post" action="/admin/gailua/save" novalidate>
             <div class="modal-header border-secondary">
               <h5 class="modal-title">Gailuak sortu</h5>
               <button
@@ -1260,6 +1290,7 @@
                   placeholder="D005"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -1271,6 +1302,7 @@
                   placeholder="Dell"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -1282,6 +1314,7 @@
                   placeholder="Latitude 5520"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -1293,6 +1326,7 @@
                   placeholder="ABC123"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -1314,6 +1348,7 @@
                   placeholder="101"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
             </div>
             <div class="modal-footer border-secondary">
@@ -1330,7 +1365,6 @@
       </div>
     </div>
 
-    <!-- Aldatu gailu -->
     <div
       class="modal fade"
       id="aldatuGailuModal"
@@ -1340,7 +1374,7 @@
     >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-dark border border-secondary text-white">
-          <form method="post" action="/admin/gailua/update">
+          <form method="post" action="/admin/gailua/update" novalidate>
             <div class="modal-header border-secondary">
               <h5 class="modal-title">Aldatu Gailua</h5>
               <button
@@ -1375,6 +1409,7 @@
                   class="form-control bg-dark text-white border-secondary"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -1386,6 +1421,7 @@
                   class="form-control bg-dark text-white border-secondary"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -1397,6 +1433,7 @@
                   class="form-control bg-dark text-white border-secondary"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -1418,6 +1455,7 @@
                   class="form-control bg-dark text-white border-secondary"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
             </div>
             <div class="modal-footer border-secondary">
@@ -1434,7 +1472,6 @@
       </div>
     </div>
 
-    <!-- Sortu solairu -->
     <div
       class="modal fade"
       id="sortuSolairuModal"
@@ -1444,7 +1481,7 @@
     >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-dark border border-secondary text-white">
-          <form method="post" action="/admin/solairua/save">
+          <form method="post" action="/admin/solairua/save" novalidate>
             <div class="modal-header border-secondary">
               <h5 class="modal-title">Solairuak sortu</h5>
               <button
@@ -1464,6 +1501,7 @@
                   placeholder="F005"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -1475,6 +1513,7 @@
                   placeholder="1"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -1486,6 +1525,7 @@
                   placeholder="E001"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
             </div>
             <div class="modal-footer border-secondary">
@@ -1502,7 +1542,6 @@
       </div>
     </div>
 
-    <!-- Aldatu solairu -->
     <div
       class="modal fade"
       id="aldatuSolairuModal"
@@ -1512,7 +1551,7 @@
     >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-dark border border-secondary text-white">
-          <form method="post" action="/admin/solairua/update">
+          <form method="post" action="/admin/solairua/update" novalidate>
             <div class="modal-header border-secondary">
               <h5 class="modal-title">Aldatu Solairua</h5>
               <button
@@ -1547,6 +1586,7 @@
                   class="form-control bg-dark text-white border-secondary"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
               <div class="mb-3">
                 <label class="form-label text-secondary small text-uppercase"
@@ -1558,6 +1598,7 @@
                   class="form-control bg-dark text-white border-secondary"
                   required
                 />
+                <div class="invalid-feedback">Eremu hau derrigorrezkoa da.</div>
               </div>
             </div>
             <div class="modal-footer border-secondary">
@@ -1574,15 +1615,12 @@
       </div>
     </div>
 
-    <!-- Irten modala (fragmenttik) -->
     <div th:replace="~{fragments :: logout-modal}"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/logout-confirm.js"></script>
     <script>
-      // Aplicar estilos a botones con data-action
       function applyActionButtonStyles() {
-        // Botones Irten (Logout) - ROJO
         document.querySelectorAll('[data-action="irten"]').forEach((button) => {
           button.style.backgroundColor = "#dc3545";
           button.style.color = "#ffffff";
@@ -1603,7 +1641,6 @@
           };
         });
 
-        // Botones Atzera/Back - AZUL CLARO
         document
           .querySelectorAll('[data-action="atzera"], [data-action="back"]')
           .forEach((button) => {
@@ -1701,7 +1738,6 @@
         initDuplicateIdValidation();
       }
 
-      // Aplicar cuando el documento esté listo
       if (document.readyState === "loading") {
         document.addEventListener(
           "DOMContentLoaded",
@@ -1711,7 +1747,24 @@
         initializeAdminEnhancements();
       }
 
-      // ── BILAKETA ─────────────────────────────────────────
+      document
+        .querySelectorAll(".modal form[novalidate]")
+        .forEach(function (form) {
+          form.addEventListener("submit", function (e) {
+            if (!form.checkValidity()) {
+              e.preventDefault();
+              e.stopPropagation();
+            }
+            form.classList.add("was-validated");
+          });
+        });
+      document.querySelectorAll(".modal").forEach(function (modal) {
+        modal.addEventListener("hidden.bs.modal", function () {
+          var f = this.querySelector("form[novalidate]");
+          if (f) f.classList.remove("was-validated");
+        });
+      });
+
       function bilatu(inputId, tablaId) {
         const b = document.getElementById(inputId).value.trim().toLowerCase();
         document.querySelectorAll("#" + tablaId + " tbody tr").forEach((tr) => {
@@ -1757,7 +1810,6 @@
         garbitu("bilatu-solairu", "solairuTabla");
       }
 
-      // ── EZABATU IREKITZAILEAK ────────────────────────────
       function ezabatuErabiltzailea(tr) {
         document.getElementById("ezabatu-erab-id").value =
           tr.getAttribute("data-id");
@@ -1792,7 +1844,6 @@
         ).show();
       }
 
-      // ── ALDATU IREKITZAILEAK ─────────────────────────────
       function aldatuErabiltzaileaIreki(tr) {
         document.getElementById("aldatu-erab-id").value =
           tr.getAttribute("data-id");
